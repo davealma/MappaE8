@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 )
 
 func HitDors(cookieVal string) (string, string) {
 	
-	req, err := http.NewRequest("Post", "https://makers-challenge.altscore.ai/v1/s1/e8/actions/door", nil)
+	req, err := http.NewRequest("Post", os.Getenv("API_URL") + "/v1/s1/e8/actions/door", nil)
 	if err != nil {
 		panic(err)
 	}
@@ -22,7 +23,7 @@ func HitDors(cookieVal string) (string, string) {
 	}
 
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("API-KEY", "ca7d669ffc1746079404cb4d5fb92a3d")
+	req.Header.Add("API-KEY", os.Getenv("API_KEY") )
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -51,13 +52,13 @@ func PostSolution (message string) {
 		"hidden_message": "`+message+`"
 	}`)
 
-	req, err := http.NewRequest("Post", "https://makers-challenge.altscore.ai/v1/s1/e8/solution", bytes.NewBuffer(body))
+	req, err := http.NewRequest("Post", os.Getenv("API_URL") + "/v1/s1/e8/solution", bytes.NewBuffer(body))
 	if err != nil {
 		panic(err)
 	}
 
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("API-KEY", "ca7d669ffc1746079404cb4d5fb92a3d")
+	req.Header.Add("API-KEY", os.Getenv("API_KEY"))
 
 	client := &http.Client{}
 	resp, err := client.Do(req)

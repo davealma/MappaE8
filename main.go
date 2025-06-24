@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 var encodedStrings []string
@@ -33,7 +35,9 @@ func HoldDoor(value string) string {
 	}
 }
 
-func main() {	
+func main() {
+	godotenv.Load()
+
 	HoldDoor("")
 	var hiddenMessage []string
 	for _, value  := range encodedStrings {
